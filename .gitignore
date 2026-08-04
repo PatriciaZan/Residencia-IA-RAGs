@@ -1,0 +1,74 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+# (Safe to delete, can be regenerated at any time)
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+# (Prevents thousands of dependency files from committing)
+.venv/
+venv/
+ENV/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables and secrets
+# (Never commit API keys or production database passwords)
+.env
+.secret
+*.pem
+.idea
+
+# Inline configuration & Lockfiles 
+# (Uncomment lockfiles only if you intend to track them for app deployments)
+# pipenv.lock
+# poetry.lock
+# uv.lock
+
+# Testing / Coverage
+htmlcov/
+.tox/
+.nosetests
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.stats
+.pytest_cache/
+.history/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# IDEs and Code Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store

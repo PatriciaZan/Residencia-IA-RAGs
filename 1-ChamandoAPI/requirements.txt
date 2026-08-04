@@ -1,0 +1,3 @@
+python-dotenv~=1.2.2
+openai~=2.52.1
+openrouter~=1.1.29
