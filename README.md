@@ -1,16 +1,30 @@
-# 📚 Residência Trilhas em Tecnologias - IA e RAG
+# 📚 Residência - IA Generativa e RAG
 
 ## Aluna: _Patrícia Zan de Oliveira_
 
 Este repositório contém as aulas, exercicios, e resumos.
 
-# 📚 Conteúdo de cada aula:
+# 📌 Navegue pelas pastas:
 
-**1. Aula 01 `1-RepoPessoal` <br/>**
+### **1. Aula (08/26) `01-APIOpenRouter` <br/>**
 
-- [x] Conectando a IA da openIA com arquivo `.env`
-- [x] Realizando teste de retorno o terminal.
-- [x] Explorando Gemini Key pelo Google Studio
+- Criando conecção com a API do OpenRouter.
 
-\*\*2. Aula 02 `02-TrabalhandoComPDF`
-Extração de dados usando LLMs e Docling
+### **2. Aula (08/26) `02-TrabalhandoComPDF` <br/>**
+
+- Extração de PDFs para Markdown usando Docling.
+
+### **3. Aula (07/08/26) `03-Embeddings` <br/>**
+
+- Geração de Embeddings.
+- Distância Euclidiana.
+- Distância de Cosseno.
+
+### **4. Aula (10/08/26) `04-Langchain`**
+
+- Estrategias de Chunking com langchain.
+- 10 estratégias diferentes de chunking.
+- Documentação sobre análise.
+- Geração de Embeddings.
+
+### **5. Aula (12/08/26) `05-` <br/>**
