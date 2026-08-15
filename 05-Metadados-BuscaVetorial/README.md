@@ -6,6 +6,18 @@ Aluna: Patrícia Zan de Oliveira. <br>
 
 - `05_CriandoDocuments.ipynb`: Código resultante dos exercicios propostos.
 
+## Respostas
+
+### 1. Qual campo você incluiria se precisasse citar a fonte na resposta final do RAG, informando ao usuário exatamente de onde veio a informação?
+
+_fonte_ e posteriormente o index do chunk que foi retirado.
+Caso tiver o número da página retirado também poderia ser uma informação.
+
+### 2. Por que chunk_index é útil? Pense no caso em que o trecho recuperado está cortado no meio de uma explicação.
+
+_Ele indica a posição do chunk dentro do arquivo PDF_
+Assim com o index do chunk pode ser feito a leitura de um chunk anterior ou posterior para completar o contexto.
+
 ## Criação do Document
 
 Resultado:

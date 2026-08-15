@@ -27,4 +27,8 @@ Este repositório contém as aulas, exercicios, e resumos.
 - Documentação sobre análise.
 - Geração de Embeddings.
 
-### **5. Aula (12/08/26) `05-` <br/>**
+### **5. Aula (12/08/26) `05-Metadados-CuscaVetorial`**
+
+- Documents, Metadados e Busca Vetorial com LangChain.
+- Criando Documents na mão.
+- Projetando o schema de metadados
