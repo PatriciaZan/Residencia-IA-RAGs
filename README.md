@@ -6,6 +6,11 @@ Este repositório contém as aulas, exercicios, e resumos.
 
 # 📌 Navegue pelas pastas:
 
+### **Testes `Testes` <br/>**
+
+- Testando atualizações no código
+- Melhores formas de fazer
+
 ### **1. Aula (08/26) `01-APIOpenRouter` <br/>**
 
 - Criando conecção com a API do OpenRouter.
