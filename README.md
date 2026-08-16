@@ -36,4 +36,10 @@ Este repositório contém as aulas, exercicios, e resumos.
 
 - Documents, Metadados e Busca Vetorial com LangChain.
 - Criando Documents na mão.
-- Projetando o schema de metadados
+- Projetando o schema de metadados.
+
+### **6. Aula (14/08/26) `06-ProjetoArquiteturaAppRAG`**
+
+- Quando e por que utilizar um RAG.
+- Parte 1 - Identificação dos problemas.
+- Criar dois cenários.
