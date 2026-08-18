@@ -256,7 +256,7 @@ Os arquivos pdf já seriam padronizados para evitar erros.
 
 ### 4.1 Metadados do documento
 
-```
+```json
   {
     "document_id": "001",
     "title": "Diário Fisiológico 01/08/2026|15/08/2026",
@@ -285,7 +285,7 @@ Os arquivos pdf já seriam padronizados para evitar erros.
 
 ### 4.2 Metadados do chunk
 
-```
+```json
   {
     "document_id": "001",
     "chunk_id": "001-05",
