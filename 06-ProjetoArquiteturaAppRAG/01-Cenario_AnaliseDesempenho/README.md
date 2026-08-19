@@ -1,440 +1,349 @@
-# **Sistema de Análise de Desempenho e Prontuário Fisiológico Privado de uma Equipe Profissional ou Atleta Pessoal**
+# **Análise de Desempenho e Prontuário Fisiológico**
+
+Aluna: Patrícia Zan de Oliveira
 
 ## Parte 1 - Identificação dos problemas
 
-## _1.1 Descrição do problema_
+## _**1.1 Descrição do problema**_
 
-Vindo da junção com um projeto pessoal "ProCore" que estou desenvolvendo envolvendo "Atividades fisicas para treino estruturado".  
-Em um futuro a implementação de treinadores e seus atletas ou times.
+Vindo da junção com um projeto pessoal "ProCore" que estou desenvolvendo envolvendo "Atividades fisicas para treino estruturado".
 
-Utilizando documentos de treinos estruturados criados pelo treinador ou atleta e documentações de "diários" geradas pelo app e atletas com descrição rica de cada atividade e blocos de treinos, podendo assim cruzar informações de cenários de sucesso, fadiga, lesão.
+Geração mais precisa de resumos de atividades individuais, semanais, quinzenais, mensais e por blocos de treinos montendo o contexto de treinos esperados de se realizar com oque foi possivél realizar.
 
-Pergunta exemplo - "Entre os dias 15/02/26 á 10/03/26 quais treinos eu realizei?"
-Resposta exemplo - "Você realizou os treinos de intervalo,endurance (lista os dias e treinos com metadados do treino)."
+### - _Qual é o problema que você deseja resolver?_
 
-### **- Qual é o problema que você deseja resolver?**
+Possibilidade de cruzar dados de atividades com planos de treinos e recuperação personalizados do usuário, além de poder gerar pesquisar e resumos de: "Por que esta semana deu certo?", "Oque eu realizei dos dias 00/00 até 00/00 e construa um treino parecido"
 
-A possibilidade de identificar padrões de sucesso, fadiga, lesões com base em dados/docs de "diários" de treinos passados.
-Por meio da utilização de relatórios gerados pelo app que serão armazenados em PDF, podendo ser semanas, mensal, bloco, ano.
-
-### **- Quem utilizaria a aplicação? Descreva o usuário concretamente: cargo, contexto de uso, nível técnico.**
+### - _Quem utilizaria a aplicação?_
 
 <!-- prettier-ignore -->
-| Cargo                 | Nível Técnico | Contexto          |
-| --------------------- | ------------- | ----------------  |
-| Atletas Amadores      | Baixo         | Pessoas que buscam entender melhor a relação fadiga X volume treino |
-| Atletas Profissionais | Médio         | Atletas que buscam entender a relação fadiga X Carga X Lesões e ao planejamento estruturado de blocos de treino |
-| Treinadores           | Alto          | Profissionais que desejam ter maior controle sobre seus atletas, entendendo melhor a relação das cargas e blocos de treinos com a fadiga e lesões apresentadas por cada integrante, melhorando assim de forma individual cada bloco de treino para que se adapte a cada atleta. |
+| Cargo     | Contexto uso          | Nível técnico |
+| -----     | ------------          | ------------- |
+| Atletas   | Melhora de desempenho | Médio|
+| Pessoas em Recuperação | Traçar o melhor plano de esporte após uma lesão ou ploblema de saúde| Médio |
 
-### **- Que tipo de informação o usuário gostaria de consultar?**
+### - _Que tipo de informação o usuário gostaria de consultar?_
 
-Existe algum padrão entre entre carags de treinos elevadas e o maior consumo de carboidratos com fadiga durante o dia entre os dias 15/06/26 até 15/07/26?
+Informações de treinos e desempenho, cruzando seus histórico de saúde com os treinos que realiza ou deseja realizar.
 
-Existe algum padrão de treinos realizados no ultimo mês com aumento da fadiga acumulada?
-Quais treinos realizei nos ultimos 15 dias com maior score?
+### - _De onde vêm essas informações?_
 
-2. Relação Fatiga X Treinos realizados.
-3. Relação Melhoria X Treinos Realizados.
-4. Com o tempo e dados a possibilidade de construção de tipos de treinos corretos.
+As métricas e descrições das atividades vem do processamento de xmls e preenchimento por parte do usuário.
 
-### **- De onde vêm essas informações?**
+### - _Por que utilizar um LLM sozinho não seria suficiente?_
 
-Banco de dados da aplicação que irão gerar Documentos "Diarios" dos últimos 15/30dias.
+Pois o usuário pode fornecer documentações de seu histórico de saúde, treinos ou históricos de como se recuperou de uma determinada lesão, assim cruzando com as insformações de treinos e metricas para melhor construir e seus treinos.
 
-1. Kilometragem (xml)
-2. Tempo de treino (xml)
-3. Zonas (xml)
-4. Tempo acumulado em Zonas (xml)
-5. Descrição de sentimentos da atividade (preenchimento do usuário)
-6. Dados metereologicos (api)
-7. Gerado a cada 7/15/mês decorrido/bloco de treino. (app)
-8. Descrição do usuário, idade,peso,altura,zonas,genero. (preenchimento do usuário)
-9. score
-10. Fadiga
-11. Análise IA/LLM (ainda a definir)
+### - _Como o usuário vai utilizar o sistema? (API, aplicativo, interface web?)_
 
-### **- Por que utilizar um LLM sozinho não seria suficiente?**
+Interface web. ReactJS
 
-- As informações obtidas de treinos são pessoais, estas que serão geradas por métricas.
-- As informações de tipos de treinos construidas por Treinadores geralmente são feitas especialmente para cada atleta.
-- Fazer a correlação Treino X Treino Executado X Resultados acabam sendo muitas informações para um LLM comum.
+### - _Três exemplos de perguntas que o usuário faria ao sistema"_
 
-### **- Como o usuário vai utilizar o sistema? (API, aplicativo, interface web?)**
+**1. Pergunta exemplo 1:**
+"Quais treinos de ciclismo são melhores de eu fazer nos proximos 15 dias para que eu me recupere da minha lesão lombar?"
 
-- Interface Web.
-- Atualmente uma demo teste de processamento de dados existe com ReactJS, NodeJS, Python, supabase.
+**Resposta exemplo 2:**
+"Com base em seus ultimso exames médicos os melhores treinos para se realizar são de recovery, evitando subidas e força, também é recomendado ###, com base em seus exames disponivéis também é recomendado repouso de ### com fisioterapia 2x na semana"
 
-### **- Escreva também **três perguntas reais** que um usuário faria ao sistema. Perguntas concretas, do jeito que a pessoa falaria - não títulos de tópico.**
+---
 
-- Me retorne os treinos com maior score de fadiga dos ultimso 30 dias.
-- Me retorne os treinos que realizei entre os dias 12/05/26 até 30/05/26.
-- Me retorne os tipos de treinos que mais realizei nos últimos 30 dias.
-- Me retorne meu plano de recuperação pós lesão na panturrilha.
-- Quais atletas tiveram maior score acumulado nos últimos 30 dias?
+**2. Pergunta exemplo 2:**
+"Qual foi meu desempenho nos treinos de intervalos no último bloco com o esperado no planejamento de treinos intervalados?"
 
-## _1.2 Por que RAG?_
+**Resposta exemplo 2:**
+"Com base nos seus últimos 5 treinos de intervalos realizados no ultimo bloco voc~e teve um desempenho superior ao programado para este bloco, com um maior volume de intervalos com maior tempo sugerido. Tendo obtido um score maior de resultado porém um maior acumulo de fadiga, atenção para surgimento de fadiga crônica se o o padrão for seguido, é sugerido a diminuição de treinos de intervalos durante a próxima semana e a adição de treinos de endurance e recovery para maximizar os ganhos de força."
 
-### **- Por que RAG é adequado para esse problema?**
+---
 
-- Para o consumo de dados de treinos pessoais de cada atleta e treinador, gerando resumos valiosos de consulta futura.
+**3.Pergunta exemplo 3:**
+"Oque pode ter contribuido para minha atual lesão na panturrilha direita?"
 
-### **- Que tipo de conhecimento precisa ser fornecido ao modelo?**
+**Resposta exemplo 3:**
+"Sua carga de treino nos últimos 15 dias apresenta poucos dias de treinos nos primeiros 10 dias e um rápido aumento de volume de carga em subidas em 3 secções e 1 secção de intervalos junto com as altas temperaturas em dias e horários de treinos que podem ter contribuido para sua lesão. Recomenda-se o descanso ou atividades de baixa intensidade por períodos menores de tempo para uma melhor chance de recuperação. **_carrega documento de histórico de lesão na panturrilha do user e aresenta um plano de ação recomendado_**"
 
-Dados dos treinos.
+---
 
-- Diário de blocos (gerado pela aplicação).
-- De atletas: Zonas, peso, altura, genêro, relátorio produzino pelo atleta(por atividade, semana, mês).
-- De treino: Km, Altimetria, tempo, watts, cardio, score, descrição de como se sentiu, tipo treino.
-- De tipo Treino: nome, tipo, zona esperada, repetições.
-- Planos de treinos(Blocos) e recuperação pós prova/lesão.
+## _**1.2 Por que RAG?**_
 
-### **- Esse conhecimento muda com que frequência? (diariamente, mensalmente, quase nunca?)**
+### _Por que RAG é adequado para esse problema?_
 
-- O conhecimento se agrega como um diário.
-- Ele pode adicionar planos de recuperação e treinos para consulta.
+O RAG se enquadra neste cenário para a junção de histórico de treinos, lesões, planos de recuperação e planos de treino, dando um melhor cantexto pessoal do usuário que não existe fora do banco de dados do aplicativo.
 
-### **- Existe necessidade de utilizar documentos privados ou específicos da organização?**
+### _Que tipo de conhecimento precisa ser fornecido ao modelo?_
 
-- Sim, documentos detalhando tipo de treino, detalhes do atleta, detalhes de atividades, diários de treinos.
+Documentações de planos médicos, lesões, recuperação e métricas de atividades e usuário.
 
-### **- Que problemas poderiam ocorrer se o LLM respondesse apenas com seu conhecimento pré-treinado? Dê um exemplo concreto de resposta errada que ele daria no seu cenário.**
+### _Esse conhecimento muda com que frequência? (diariamente, mensalmente, quase nunca?)_
 
-"Great effort today! You maintained a solid, controlled pace during the middle 3km and spent most of your time in heart rate zone 3. Your relative effort was slightly higher than your 30-day average, showing good endurance buildup. Keep this up for your next steady session!"
+Esse conhecimento é constantemente construído na base de dados do aplicativo, formando um hist´rorico que pode ser acessado e revisitado.
 
-Não nescessariamente errada, porém é vaga, eu testei pessoalmente a IA do Strava (Athlete Intelligence) e rapidamente reparei que as respostas geradas são extremamente genéricas e não agregam em nada para identificar padrões de fadiga ou melhora. Não contribui em nada para melhor estruturar os treinos e quase nunca relaciona sua atividade com o treino que realizou(tempo,endurance,intervals, etc...)
+### _Existe necessidade de utilizar documentos privados ou específicos da organização?_
 
-- Também não criam históricos que podem ser usados para consulta.
-- E não cria um banco de dados sobre planos de treinos/recuperação pessoais.
+Sim, históricos privados do usuário.
 
-## _1.3 Limitações - quando RAG não é a resposta_
+### _Que problemas poderiam ocorrer se o LLM respondesse apenas com seu conhecimento pré-treinado? Dê um exemplo concreto de resposta errada que ele daria no seu cenário._
 
-Em quais situações RAG **não** seria a melhor solução para esse problema?  
-Considere e comente ao menos três alternativas:
+A falta de contexto sobre o usuário seria o maior problema, a LLM sozinha pode criar um plano de treino para qualquer pessoa, mas a adição de contexto sobre doenças e lesões junto ao acompanhamento apenas um Rag seria capaz de contribuir.
 
-### **-Busca tradicional por palavra-chave;**
+"Um treino para oumentar sua capacidade anaeróbica pode ser fazer intervalos 3x por semana, 1x secções mais longas em zona dois e 3x levantar pesos"
 
-Quando o treinador/atleta só quer fazer a busca por palavras chaves, como:
+---
 
-- Teste de FTP.s
-- Como calcular zonas de treino?
-- Oque é um treino de intervalo?
+## _**1.3 Limitações - quando RAG não é a resposta**_
 
-### **-Banco de dados estruturado e consultas SQL;**
+Em quais situações RAG não seria a melhor solução para esse problema?
 
-Quando o treinador/atleta quer saber de métricas como:
+- Busca por históricos de treinos, sem a analise dos dados: "Quais treinos realizei ente os dias 10/06 até 30/06"
+- Busca por soma de score de uma semana/mês
+- Busca por tipos de treinos cadastrados.
 
-- Distância/tempo na semana/mês
-- Score
-- Tempo em cada zona
-- Tipo de treino em qual dia
+### _Existe alguma pergunta, dentro do seu próprio cenário, que RAG responderia mal e um banco de dados relacional responderia bem? Qual, e por quê?_
 
-### **-Regras determinísticas**
+Sim, soma entre valores para resumos semanais/mensais, escores,distancia,tempo etc...
 
-Protocolos de segurança de saúde e alertas de overtraining óbvios não devem depender de uma IA, mas sim de analise estatistica pelo próprio sistema.
+### _O que aconteceria se a pergunta do usuário exigisse contar, somar ou ordenar informação espalhada por muitos documentos?_
 
-### **-Utilização direta de uma API;**
+Somas e ordenações podem ser feitas por um select bem construido no banco de dados.  
+As informações de históricos médicos deverão ser amazenadas de forma organizada, mantendo documentos de temas próprios.
 
-Quando usar em vez do RAG: Para buscar dados em tempo real que mudam o tempo todo (como a previsão do tempo para o treino externo de ciclismo de hoje, ou buscar dados brutos direto da API do Garmin/Strava), consome a API diretamente, sem precisar indexar isso em uma base de vetores.
+## Parte 2 - Organização dos documentos
 
-### **-Combinação de alguma dessas técnicas com RAG.**
+Descreva:
 
-Um banco SQL para guardar os números das métricas do atleta + um RAG para buscar as descrições ricas, feedbacks textuais do treinador e artigos científicos de periodização.
+### _Quais tipos de arquivo existirão? (PDF, DOCX, HTML, Markdown, páginas web, planilhas, imagens, áudios, vídeos, outros)_
 
-### **Responda também:**
+- PDF
+- Markdown
+- Retornos JSON
 
-- Existe alguma pergunta, dentro do seu próprio cenário, que RAG responderia **mal** e um banco de dados relacional responderia bem? Qual, e por quê?
-  Qual é a soma total de quilômetros percorridos pelo atleta X em todos os treinos do mês de maio de 2026?  
-  Qual foi a média exata da frequência cardíaca máxima nos treinos intervalados de terça-feira?
+### _Qual o volume aproximado? (dezenas, centenas, milhares de documentos?)_
 
-- O que aconteceria se a pergunta do usuário exigisse **contar**, **somar** ou **ordenar** informação espalhada por muitos documentos?
-  Para tarefas de contagem, soma e ordenação em larga escala, o correto arquiteturalmente é extrair os dados para tabelas estruturadas (SQL) e deixar o banco de dados fazer o trabalho pesado, usando o RAG apenas para a parte de consulta.
+- Dezenas de documentos.
+- Milhares de atividades.
 
-## _Parte 2 - Organização dos documentos_
+### _Qual o tamanho típico de cada documento? (Paginas, kbs)_
 
-**1. Defina quais documentos serão utilizados.**
+- 1 até 30 páginas.
+- Resposta JSON podendo ter várias atividades.
 
-1. PDFs
+### _Com que frequência novos documentos entram? Documentos antigos são atualizados ou substituídos?_
 
-**2. Qual o volume aproximado?**
+- Frequência diaria de Atividades (SQL).
+- Documentos é váriavél.
 
-1. Um novo documento a cada: 7/15/30dias/Por bloco/Por criação
-
-**3. Qual o tamanho típico de cada documento? (Paginas, kbs)**
-
-1. 200kbs.
-2. 3 até 20 páginas.
-
-**4. Com que frequência novos documentos entram? Documentos antigos são atualizados ou substituídos?**
-
-1. Cada 15 dias.
-2. Documentos antigos serão mantidos.
-
-**5. Estrutura V.1**
+_Proponha uma organização de pastas que faça sentido para o problema escolhido:_
 
 ```
     documentos/
-    ├── userData/
-    ├── tipoTreino/
-    ├── diarioSemanal/
-    ├── diarioMensal/
-    ├── diarioBloco/
-    ├── relatórioMensal/
-    ├── documentosTreinos/
-    ├── documentosRecuperacao/
+    ├── bancoDeDados/
+    ├── treinos/
+    ├── historicoMedico/
+    ├── historicoLesao/
+    ├── relatorios/
     └── outros/
-
 ```
 
-**6. Perguntas**
+Esta organização permitiria a rapida navegação para documentos de interesse, separando históricos de diferentes categorias com os treinamentos contruidos pelo usuário.
 
-- Existe documento que **não deve** entrar na base? (informação sigilosa, dado pessoal, versão obsoleta) Como você impediria a entrada?
-  Ainda devo definir
-- Como você lidaria com **versões** do mesmo documento? Se a política de férias mudou em 2026, o sistema pode recuperar a versão de 2024 e responder errado.
-  Arquivos antigos podem estar ligados diretamente em como um treino foi executado e seu resultado.  
-  Logo arquivos antigos são a base para consultas.
-  Porém arquivos de detalhes de treinos/recuperação podem ser atualizados com novos, porém é importante manter os antigos para consulta. Assim estabelecer um sistema de identificação de arquivos, versões.
+### _Existe documento que não deve entrar na base? (informação sigilosa, dado pessoal, versão obsoleta) Como você impediria a entrada?_
 
-## _Parte 3 - Pipeline de ingestão_
+A definir
 
-Projete o processo que transforma os documentos originais em informação pesquisave
+### _Como você lidaria com versões do mesmo documento? Se a política de férias mudou em 2026, o sistema pode recuperar a versão de 2024 e responder errado._
+
+Com o versionamento de documentos. Mantendo uma nomenclatura clara.
+
+## Parte 3 - Pipeline de ingestão
+
+Projete o processo que transforma os documentos originais em informação pesquisavel.
 
 ```
-Documentos
-    ↓
-Extração
-    ↓
-Limpeza / normalização (principalmente se o documento chegar poluido demais)
-    ↓
-Metadados (Lembram dos output estruturados do llm?)
-    ↓
-Chunking / Splitting
-    ↓
-Embeddings
-    ↓
-Banco vetorial (até agora trabalhamos com uma lista de vetores/embeddings que estamos fazendo a pesquisa na mão)
+Para documentos upados pelo user:
+
+    Documentos
+        ↓
+    Extração
+        ↓
+    Limpeza / normalização
+        ↓
+    Metadados
+        ↓
+    Chunking / Splitting
+        ↓
+    Embeddings
+        ↓
+    Banco vetorial
 ```
 
-**1. Documentos serão gerados padronizados pelo App**
+```
+Para métricas do app:
 
-- Planos de treinos
-- Relatórios quinzenais/mensais/blocos
-- Informações do User
+       XML
+        ↓
+    Extração
+        ↓
+    Retorno FrontEnd
+        ↓
+    Preenchimento Descrição + dados pelo user
+        ↓
+    Salvamento no banco de dados (NodeJS+Supabase)
+```
 
-### 3.1 Extração
+## _**3.1 Extração**_
 
-- Como o texto seria extraído?
-  Docling para markdown
+### _Como o texto seria extraído?_
 
-- Como você trataria PDFs com texto selecionável?
-  Não teria
+Docling.
 
-- E PDFs digitalizados (imagem escaneada, sem camada de texto)?
-  Não teria
-- Como trataria tabelas? (é importante manter?)
-  Não teria
-- Como trataria imagens? (posso descartar? quais informações elas tem?)
-  Não teria
-- Como trataria documentos multimodais?(multimodais = texto + imagem, audio + video, texto + video e etc)
-  Não teria
+### _Como você trataria PDFs com texto selecionável?_
 
-Explique quais problemas podem surgir durante a extração. Se você já enfrentou algum deles nas atividades anteriores, cite o caso concreto.
-Os arquivos pdf já seriam padronizados para evitar erros. Mas a atenção com imagens/tabelas e gráficos é nescessária.
+A definir melhor metodo.
 
-### 3.2 Limpeza e normalização
+### _E PDFs digitalizados (imagem escaneada, sem camada de texto)?_
 
-- O que precisa ser removido? (cabeçalhos e rodapés repetidos, numeração de página, marcas d'água, sumário, referências)
-  Nada
-- O que precisa ser padronizado? (acentuação, quebras de linha, espaçamento, codificação)
-  Nada
-- Que informação você corre o risco de **perder** ao limpar demais?
-  Nada
-  Inicialmente não serão carregados Documentos não criados no app
+Extração de imagens e nromalização usando LLM para descrever a imagem, além de referênciar.
 
-### 3.3 Frequência de ingestão
+### _Como trataria tabelas? (é importante manter?)_
 
-- O pipeline roda uma vez, sob demanda, ou de forma agendada? Com que frequência chegam novos documentos?
-  De forma agendada, podendo ser de 7/15/30 dias
-  Sob demanda, quando o usuário quer fazer upload de documentos de treinos/recuperação.
-- Quando um documento é atualizado, você reprocessa **só ele** ou a base inteira? Como sabe qual reprocessar?
-  Não teriam documentos sofrendo atualizações.
-  Documentação irá sofre uma implementação de versões.
+A definir melhor metodo.
 
-## _Parte 4 - Metadados_
+### _Como trataria imagens? (posso descartar? quais informações elas tem?)_
 
-### 4.1 Metadados do documento
+Extração de imagens e nromalização usando LLM para descrever a imagem, além de referênciar.
+
+### _Como trataria documentos multimodais?(multimodais = texto + imagem, audio + video, texto + video e etc)_
+
+Extração de imagens e nromalização usando LLM para descrever a imagem, além de referênciar.  
+A definir melhor forma.
+
+Alguns problemas são: A imagem não ser corretamente extraida dos PDF, tabelas com formação errada.  
+Ainda explorando a melhor forma de correção para estes casos.
+
+### _Limpeza e normalização_
+
+## _**3.2 Limpeza e normalização**_
+
+### _O que precisa ser removido? (cabeçalhos e rodapés repetidos, numeração de página, marcas d'água, sumário, referências)_
+
+- Marcas d'água.
+- Sumário.
+- A definir.
+
+### _O que precisa ser padronizado? (acentuação, quebras de linha, espaçamento, codificação)_
+
+- Codificação.
+- A definir.
+
+SQL/métricas
+
+- Evitar retornar as atividadees por completo, mas sim partes importantes.
+
+### _Que informação você corre o risco de **perder** ao limpar demais?_
+
+- Perder referências de imagens.
+- A definir.
+
+SQL/métricas
+
+- Métricas de cardío em atividades.
+
+## _**3.3 Frequência de ingestão**_
+
+### _O pipeline roda uma vez, sob demanda, ou de forma agendada? Com que frequência chegam novos documentos?_
+
+Metricas por atividade irão executar a cada atividade cadastrada.
+Upload de documentos pode variar bastante.
+
+### _Quando um documento é atualizado, você reprocessa **só ele** ou a base inteira? Como sabe qual reprocessar?_
+
+Só ele, por meio de versionamento dos documentos.
+
+## Parte 4 - Metadados
+
+## _**4.1 Metadados do documento**_
 
 ```json
-  {
-    "document_id": "001",
-    "title": "Diário Fisiológico 01/08/2026|15/08/2026",
-    "type": "Week/month"
-    "created_at": "15/08/2026TimeStamp",
-    "athlete": "Patrícia Zan"
-    "isTrainingBlock": True/False,
-    "block": "Endurance",
-    "numberActivities"; 30,
-    "success": True/False,
-    "finalFatigue": 1234,
-    "totalScore": 2940,
-    "week": [
-      {
-        "number": 01,
-        "fatigue": 25,
-        "score": 100,
-        "distance": 250,
-        "time": 545,
-        "text": ""
-
-      }
-    ]
-  }
+Para documentos:
+{
+  "document_id": string,
+  "created_at": timestamp,
+  "title": string,
+  "user_id": number,
+  "document_type": string,
+  "category": string
+}
 ```
 
-### 4.2 Metadados do chunk
+`"document_id"` -> identificação do documento.  
+`"created_at"` -> Data de criação, caso o user deseje adicionar filtros ou definir documentos recentes.  
+`"title"` -> Saber qual documento se trata.  
+`"user_id"` -> Saber qual user está lincado o documento.  
+`"document_type"` -> Qual tema se encaixa, lesão, exame, treino, resumos.  
+`"category"` -> qual categoria, musculo, osso, pele | Intervals, Endurance | Resumo semana/mês/ano.
+
+---
 
 ```json
-  {
-    "document_id": "001",
-    "chunk_id": "001-05",
-    "page": 1,
-    "section": "weekNumber",
-    "success": True/False,
-    "document_type": "diary",
-    "text": "..."
-  }
+Para métricas de atividades:
+[
+{
+  "activity_id": number,
+  "user_id": number,
+  "created_at": timestamp,
+  "title": string,
+  "score": string,
+  "fatique": number,
+  "distance": numeber,
+  "moving_time": number,
+  "max_heartHate": number,
+  "avr_heartHate": number,
+  "training_type": string,
+  "overviewIA" : string,
+},
+]
 ```
 
-- Quais metadados você usaria para **filtrar** a busca? Dê um exemplo de pergunta em que o filtro é indispensável.
-  1. created_at
-     "Dos meus treinos entre dias 15/05 até 15/06 quais foram os que geraram maior fadiga?
+`"activity_id"` -> Identificar a atividade.  
+`"user_id"` -> Identificar o user.  
+`"created_at"` -> Para conseguir executar filtros.  
+`"title"` -> Pode ser util.  
+`"score"` -> Métrica.  
+`"fatique"` -> Métrica.  
+`"distance"` -> Métrica.  
+`"moving_time"` -> Métrica.  
+`"max_heartHate"` -> Métrica.  
+`"avr_heartHate"` -> Métrica.  
+`"training_type"` -> Métrica.  
+`"overviewIA"` -> texto com o resumo da atividade da IA, compacta muita coisa aqui.
 
-- Quais metadados você usaria para **citar a fonte** ao usuário? O que exatamente apareceria na tela junto da resposta?
-  1. title
-  2. success
-  3. created_at
+---
 
-- Que metadado seria caríssimo de acrescentar depois que a base já estivesse indexada? Por quê?  
-  Dados de distribuição de zonas por semana/atividade. z1 - 20min/z2- 40min etc...  
-  Uma vez que precisaria reprocessar todos os relatórios.
+## _**4.2 Metadados do chunk**_
 
-- Como você vai extrair esses metadados
-  Extração de arquivos xml com pyhton e criação de arquivos PDF com alguma biblioteca ou LLM.  
-  Preenchimento por parte do usuário.
-
-### Parte 5 - Chunking / Splitting
-
-**Devo testar para voltar e atualizar este arquivo corretamente**
-**Explique e justifique:**
-
-- Qual estratégia de splitting você utilizaria?
-  Chunking Semantico  
-  Cada dia conterá um treino com metadados e descrição do usuário, logo separar os chunks p equenos perderá contexto, e muito grandes irá abranger um contexto grande?  
-  Assim separar em semantico manterá uma ideia por dia. (revisar)
-- Qual tamanho aproximado dos chunks?
-  200/300 char
-- Utilizaria overlap? Quanto?
-- A divisão seria por caracteres, palavras, sentenças, parágrafos ou seções?
-- Utilizaria um splitter recursivo?
-- Utilizaria uma estratégia **específica para cada tipo de documento**? Um contrato e uma transcrição de call center pedem o mesmo tratamento?
-  Talvez, uma vez que a estrutura dos "diários" e dos docuemntos de treinos e recuperaçã osão outros.
-
-**Responder:**
-
-- O que pode acontecer se os chunks forem muito pequenos?  
-  Perda de contexto
-- O que pode acontecer se os chunks forem muito grandes?  
-  Misturar tipos de dados, metadados, descrições.
-- Como você trataria uma **tabela** na hora de dividir? Uma tabela cortada ao meio ainda significa alguma coisa? e uma imagem?  
-  Deverão ser extraidas para arquivos separados e referenciadas.
-- Como saber se a sua escolha de chunking foi boa? Que evidência você juntaria para provar isso?  
-  Não sei, devo testar e analisar
-
-### Parte 6 - Embeddings
-
-**Requisitei ajuda de IA para melhor responder**
-
-<!-- prettier-ignore -->
-| Item | Resposta|
-| ---                             | ----------|
-| Modelo escolhido                | Text-embedding-3-small (ou alternativa open source local como BGE-M3) | 
-| Dimensão do embedding           | 1536 dimensões (ajustável) |
-| Suporta português?              | sim |
-| É multilíngue?                  | Sim |
-| Tamanho máximo de entrada       | 8.191 tokens |
-| É open source?                  | Não (Proprietário via API) | 
-| Pode ser executado localmente?  | Não (Disponível via nuvem/API) |
-| Possui API?                     | Sim |
-| Custo aproximado                | $0.02 por 1 milhão de tokens | 
-| Fonte da informação (link)      | OpenAI API Pricing & Documentation / Crazyrouter Guide |
-
-- Considerou algum modelo alternativo e descartou? Qual, e por quê?
-  text-embedding-3-large foi descartado para esta fase inicial por ser financeiramente mais custoso.
-
-- Se o cenário envolve documentos sigilosos, isso muda sua escolha entre modelo local e API? Como?
-  Caso a política de privacidade da equipe exija isolamento absoluto e soberania de dados on-premise, a melhor alternativa seria migrar para um modelo open-source executado localmente, como o BGE-M3 (1024 dimensões, gratuito e executado via infraestrutura própria).
-
-- O tamanho máximo de entrada do modelo tem relação com a sua decisão de chunking da Parte 5? Explique.
-  O limite de 8.191 tokens do modelo é generiso, permitindo que relatórios quinzenais ou mensais inteiros sejam processados sem truncamentos drásticos. No entanto, a estratégia de chunking da Parte 5 continua essencial para fatiar o texto em seções menores
-
-### Arquitetura final
-
-### 1. Um diagrama do sistema completo, do documento original até a resposta ao usuário. Pode ser desenho, ferramenta de diagramação ou ASCII - o que importa é estar legível e completo.
-
-<!-- prettier-ignore -->
-```
-[ Documentos Originais ] (App / JSON / XML / Relatórios PDF)  
-         │  
-         ▼  
-[ Pipeline de Ingestão ]  
-         ├── 1. Extração (Docling -> Markdown)  
-         ├── 2. Limpeza e Normalização  
-         ├── 3. Enriquecimento de Metadados (created_at, success, athlete, etc.)  
-         └── 4. Chunking / Divisão por Blocos / Semanas  
-         │  
-         ├──► [ Banco Relacional (SQL / Supabase) ] <─── (Dados Estruturados: Métricas numéricas,
-         │                                              Kilometragem, Tempo, Zonas, Scores)
-         │
-         ▼
-[ Embeddings & Indexação ]
-         ├── Geração de Embeddings (ex: text-embedding-3-small)
-         └── Armazenamento em [ Banco Vetorial ]
-         ========================================================================
-         [ FLUXO DE CONSULTA DO USUÁRIO ]
-         ========================================================================
-         │
-         ▼
-[ Interface Web (ReactJS) ] ── (Pergunta do Usuário: Ex: "Quais treinos geraram fadiga acima de 50 pontos?")
-         │
-         ▼
-[ Orquestrador / Backend (Node.js / Python) ]
-         ├── Roteamento da Consulta (Híbrido: SQL para métricas + RAG para descrições ricas)
-         ├── Aplicação de Filtros de Metadados (ex: created_at, athlete)
-         │
-         ├────────────────────────────────────────┐
-         ▼                                        ▼
-[ Banco Relacional ]                     [ Banco Vetorial ]
-(Busca exata de números/somas)           (Busca semântica de trechos relevantes)
-         │                                        │
-         └───────────────────┬────────────────────┘
-                             │ (Contexto Combinado + Dados Brutos + Pergunta)
-                             ▼
-                 [ Modelo de Linguagem (LLM) ]
-                             │
-                             ▼
-                 [ Resposta Estruturada ] ──► (Exibida na Interface Web com Citação de Fontes)
+```json
+A definir os resultados
+{
+  "document_id": string,
+  "chunk_id": string,
+  "page": number,
+  "section": string,
+  "document_type": string,
+  "text": string,
+  "has_image": boolean,
+  "has_table": boolean
+}
 ```
 
-### 2. Uma tabela de decisões, reunindo tudo:
+`"document_id"` -> Identificar o documento.  
+`"chunk_id"` -> Identificar o chunk, facilita buscar os chunks ao "redor" para melhorar contexto.  
+`"page"` -> Identificar página, ajuda a buscar chunks contidos.  
+`"section"` -> Identificar uma secção, ajuda a melhorar contexto.  
+`"document_type"` -> Identifica o tipo, facilita uma query de bsuca de texto.  
+`"text"` -> texto contido no chunk.  
+`"has_image"` > Para saber se tem imagem. Poderia ser um obj aqui?  
+`"image_desc"` > Descrição da imagem ou conjunto dos chunks.  
+`"has_table"` -> Para saber se tem uma tabela. obj?  
+`"table"` -> conteúdo da table, chunk...
 
-<!-- prettier-ignore -->
-| Etapa     | Decisão                                                                               | Justificativa em uma linha  |
-| --------- | ------------------------------------------------------------------------------------  | ----------------------------|
-| Extração  | Docling para converter documentos padronizados em Markdown.                           | Garante consistência estrutural e leitura fluida sem ruídos de arquivos não padronizados.|
-| Limpeza   | Limpeza mínima ou nula para documentos gerados nativamente pela aplicação.            | Evita o risco de descartar informações contextuais valiosas geradas pelo app.|
-| Chunking  | Divisão baseada em blocos lógicos (semanas/atividades/relatórios quinzenais).         | Mantém a coesão temporal e contextual dos diários fisiológicos do atleta.|
-| Metadados | Inclusão de carimbos temporais, status de sucesso, identificadores e métricas-chave.  | Permite filtragem precisa por datas, atletas e períodos de treino antes da busca vetorial.|
-| Embeddings| Uso do modelo text-embedding-3-small (ou alternativa local como BGE-M3).              | Oferece alto desempenho semântico com excelente custo-benefício e suporte a textos longos.|
-
-### 4. Riscos e limitações da sua própria proposta. O que você sabe que essa arquitetura não resolve bem?
-
-Ela não retorna a certeza da relação lesão X treino, não retorna formas de correção.Estes deve mser feitas analises pelo usuário/treinador ou uma LLM.
+### \_\_
