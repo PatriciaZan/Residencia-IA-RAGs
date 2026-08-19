@@ -2,9 +2,9 @@
 
 ## Parte 1 - Identificação dos problemas
 
-Ajudar na previsão de eventos climáticos e acesso a documentos de ajuda/ações após acontecimentos.
+Ajudar na previsão de eventos climáticos que afetem o munocipío e acesso a documentos de ajuda/ações após acontecimentos.
 
-Ajudar as prefeituras por meio de mapeamentos de áreas de risco e histórico de danos com o histórico de acumulados de chuva ou ventos, acionando os planos de contingencia e retornos de instruções e coordenação dos órgãos competentes com mais agilidade.
+Ajudar as prefeituras por meio de mapeamentos de áreas de risco e histórico de danos com o histórico de acumulados de chuva ou ventos, acionando os planos de contingência e retornos de instruções e coordenação dos órgãos competentes com mais agilidade.
 
 ## _1.1 Descrição do problema_
 
@@ -12,7 +12,7 @@ Ajudar as prefeituras por meio de mapeamentos de áreas de risco e histórico de
 
 A lentidão e a dificuldade na consulta descentralizada de documentos complexos e planos de ação durante eventos climáticos extremos. O objetivo é resolver a descoordenação e a demora no cruzamento de dados de previsão meteorológica (acumulados de chuva e ventos) com as diretrizes oficiais de resposta (planos de contingência e mapeamento de áreas de risco), permitindo uma reação mais rápida para salvar vidas e mitigar danos.
 
-### **- Quem utilizaria a aplicação? Descreva o usuário concretamente: cargo, contexto de uso, nível **técnico.
+### **- Quem utilizaria a aplicação? Descreva o usuário concretamente: cargo, contexto de uso, nível técnico.**
 
 <!-- prettier-ignore -->
 | Cargo                                                                                                                                                 | NívelTécnico                                                           | Contexto                                                      |
