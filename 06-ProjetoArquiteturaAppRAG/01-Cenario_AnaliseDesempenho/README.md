@@ -346,4 +346,155 @@ A definir os resultados
 `"has_table"` -> Para saber se tem uma tabela. obj?  
 `"table"` -> conteúdo da table, chunk...
 
-### \_\_
+### _Quais metadados você usaria para filtrar a busca? Dê um exemplo de pergunta em que o filtro é indispensável._
+
+`"document_type"`, `"created_at"`, `"category"`.
+
+"Quais trenos realizei entre os dias 15/06 até 30/06(`"created_at"`) seguindo o plano de treino de recuperação?(`"category"` e `"document_type"`)"
+
+### _Quais metadados você usaria para citar a fonte ao usuário? O que exatamente apareceria na tela junto da resposta?_
+
+Dependendo se a resposta for para:
+
+- consultar sobre seus planos de treinos ou recuperação -> `"title"`, ``created_at"`
+- Consultar atividades -> `"activity_id"`,`"created_at"`
+
+### _Que metadado seria caríssimo de acrescentar depois que a base já estivesse indexada? Por quê?_
+
+Metadados detalhando o pré/intra e pós treinos.
+Seria uma métrica valiosa para determinar a causa de fatiga desnecessaria Porém deve ser implementada na aplicação.
+
+### _Como você vai extrair esses metadados_
+
+Extração dos PDFs por chunking,embeddings etc..
+Metricas por extração em python dos gpxs/xml
+
+## Parte 5 - Chunking / Splitting
+
+Ajuda da IA para definir melhor estratégia.
+**Devo testar e validar se estas opções são as melhores para o chunking dos documentos, métricas não sofreriam este processo**
+
+### _Qual estratégia de splitting você utilizaria?_
+
+Chunking Semantico
+
+### _Qual tamanho aproximado dos chunks?_
+
+200/300 char
+
+### _Utilizaria overlap? Quanto?_
+
+Sim, de 10%
+
+### _A divisão seria por caracteres, palavras, sentenças, parágrafos ou seções?_
+
+Parágrafos ou setenças.
+
+### _Utilizaria um splitter recursivo?_
+
+Tentaria, para manter melhor o contexto.
+
+### _Utilizaria uma estratégia específica para cada tipo de documento? Um contrato e uma transcrição de call center pedem o mesmo tratamento?_
+
+Esta estratégia seria para os documentos de treinos,recuperação e histórico médico. Já os documentos de diários talvez sejam melhores em chunks de parágrafos.
+
+---
+
+**Responder:**
+
+### _O que pode acontecer se os chunks forem muito pequenos?_
+
+Perda de contexto
+
+### _O que pode acontecer se os chunks forem muito grandes?_
+
+Muita coisa para a LLM processar
+
+### _Como você trataria uma **tabela** na hora de dividir? Uma tabela cortada ao meio ainda significa alguma coisa? e uma imagem?_
+
+Extração separada, referenciando quando nescessário.
+
+### _Como saber se a sua escolha de chunking foi boa? Que evidência você juntaria para provar isso?_
+
+Faria perguntas sobre um documento e processaria perguntas obvias para a LLM, assim saberia se houve uma perda expreciva de contexto.
+
+## Parte 6 - Embeddings
+
+**Requisitei ajuda de IA para melhor responder**
+
+<!-- prettier-ignore -->
+| Item | Resposta|
+| ---                             | ----------|
+| Modelo escolhido                | Text-embedding-3-small (ou alternativa open source local como BGE-M3) | 
+| Dimensão do embedding           | 1536 dimensões (ajustável) |
+| Suporta português?              | sim |
+| É multilíngue?                  | Sim |
+| Tamanho máximo de entrada       | 8.191 tokens |
+| É open source?                  | Não (Proprietário via API) | 
+| Pode ser executado localmente?  | Não (Disponível via nuvem/API) |
+| Possui API?                     | Sim |
+| Custo aproximado                | $0.02 por 1 milhão de tokens | 
+| Fonte da informação (link)      | OpenAI API Pricing & Documentation / Crazyrouter Guide |
+
+### _Considerou algum modelo alternativo e descartou? Qual, e por quê?_
+
+text-embedding-3-large foi descartado para esta fase inicial por ser financeiramente mais custoso.
+
+### _Se o cenário envolve documentos sigilosos, isso muda sua escolha entre modelo local e API? Como?_
+
+Caso a política de privacidade da equipe exija isolamento absoluto e soberania de dados on-premise, a melhor alternativa seria migrar para um modelo open-source executado localmente, como o BGE-M3 (1024 dimensões, gratuito e executado via infraestrutura própria).
+
+### _O tamanho máximo de entrada do modelo tem relação com a sua decisão de chunking da Parte 5? Explique._
+
+O limite de 8.191 tokens do modelo é generiso, permitindo que relatórios quinzenais ou mensais inteiros sejam processados sem truncamentos drásticos. No entanto, a estratégia de chunking da Parte 5 continua essencial para fatiar o texto em seções menores
+
+## Parte 7 - Arquitetura final
+
+### _Um diagrama do sistema completo, do documento original até a resposta ao usuário. Pode ser desenho, ferramenta de diagramação ou ASCII - o que importa é estar legível e completo._
+
+```
+[ Fontes de Dados ]
+  ├── Documentos (PDF, MD) ──► [ Extração ] (Docling + OCR para Imagens/Tabelas)
+  └── Atividades (XML/GPX) ──► [ Processamento Python ] ──► [ Banco Relacional (Supabase/PostgreSQL) ]
+                                                                      │
+ [ Limpeza e Normalização ]                                           │
+  ├── Remoção de ruídos (sumários, marcas d'água)                      │
+  └── Padronização de codificação                                    ▼
+                                                          [ Metadados & Armazenamento ]
+ [ Chunking / Splitting ]                                  ├── Metadados de Atividade (activity_id, score, fatiga...)
+  ├── Chunking semântico (200/300 chars)                   └── Metadados de Documento (document_id, user_id, tipo...)
+  └── Overlap de 10% (parágrafos/sentenças)                           │
+         │                                                            │
+         ▼                                                            ▼
+ [ Geração de Embeddings ]                                    [ Consulta Híbrida / Reta ]
+  └── Text-embedding-3-small (ou BGE-M3)                      ├── Filtros SQL por data/categoria (Supabase)
+         │                                                    └── Busca Vetorial por Similaridade
+         ▼                                                            │
+ [ Banco Vetorial ] <─────────────────────────────────────────────────┘
+         │
+         ▼
+ [ Recuperação (Retrieval) ] ──(Top-K Chunks + Dados SQL Relacionais)
+         │
+         ▼
+ [ LLM / Geração de Resposta ] ──(Contexto Pessoal, Histórico de Lesões e Métricas)
+         │
+         ▼
+ [ Interface Web (ReactJS) ] ──► Exibição da Resposta e Citação de Fontes ao Atleta/Usuário
+```
+
+### _Uma tabela de decisões, reunindo tudo_
+
+<!-- prettier-ignore -->
+| Etapa      |	Decisão |	Justificativa em uma linha |
+| ---------- | --------- | ---------------------------- |
+| Extração   | Docling + LLM para descrições visuais | Garante a extração estruturada de textos, tabelas e conversão inteligente de imagens e PDFs complexos.| 
+| Limpeza    | Remoção de marcas d'água, sumários e padronização de codificação | Elimina ruídos desnecessários preservando as métricas de cardio e as referências essenciais do usuário.| 
+| Chunking   | Chunking semântico (200 a 300 caracteres com 10% de overlap) | Evita a perda de contexto pessoal ao fatiar documentos por parágrafos/sentenças de tamanho ideal. |
+| Metadados  | Estruturação detalhada (user_id, document_type, created_at, score, etc.) | Permite filtros SQL e vetoriais rigorosos para consultas por períodos, categorias de lesão e tipos de treino.|
+| Embeddings | text-embedding-3-small (ou open source local como BGE-M3)| Oferece alta precisão multilíngue em português com ótimo custo-benefício e flexibilidade de privacidade.|
+
+### _Riscos e limitações da sua própria proposta. O que você sabe que essa arquitetura não resolve bem?_
+
+1. Detecção de padrões antes de uma lesão acontencer.
+
+- Ele consegue resgatar o histórico, porém não consegue fazer uma predição com estes dados de forma exata.
